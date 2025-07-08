@@ -3,6 +3,7 @@ cyberpulse.cli
 ~~~~~~~~~~~~~~
 Command-line interface for CyberPulse.
 """
+
 from __future__ import annotations
 
 import sys
@@ -15,6 +16,7 @@ from . import cloud, local_llm, parsers, rules, db, notifier
 
 DEFAULT_OUT = Path("fixes.md")
 SUMMARY_CHOICES = ["auto", "local", "cloud"]
+
 
 # --------------------------------------------------------------------------- #
 # Small helpers to bridge dicts *and* model objects

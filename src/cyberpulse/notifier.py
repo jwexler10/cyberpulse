@@ -5,6 +5,7 @@ import json
 from slack_sdk.webhook import WebhookClient
 from cyberpulse.config import load_config
 
+
 def send_slack_message(text: str) -> None:
     """
     Sends a message to the configured Slack Incoming Webhook.

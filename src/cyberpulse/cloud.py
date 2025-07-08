@@ -5,6 +5,7 @@ import openai
 from cyberpulse.config import load_config
 from cyberpulse.models import Finding
 
+
 # Load API key from env or config
 def _get_api_key() -> str:
     key = os.getenv("OPENAI_API_KEY")
@@ -17,6 +18,7 @@ def _get_api_key() -> str:
         )
     return key
 
+
 def summarize_cloud(finding: Finding) -> str:
     """
     Generate a one-line remediation step via GPT-4 on OpenAI’s API.
@@ -27,7 +29,7 @@ def summarize_cloud(finding: Finding) -> str:
     messages = [
         {
             "role": "system",
-            "content": "You are a security assistant that provides concise remediation steps."
+            "content": "You are a security assistant that provides concise remediation steps.",
         },
         {
             "role": "user",
@@ -35,17 +37,12 @@ def summarize_cloud(finding: Finding) -> str:
                 f"Vulnerability {finding.cve} with CVSS score {finding.cvss_score} on host {finding.host}.\n"
                 f"Description: {finding.description or 'No description provided.'}\n"
                 "Provide a single, one-line remediation step."
-            )
-        }
+            ),
+        },
     ]
 
     resp = openai.chat.completions.create(
-        model="gpt-4",
-        messages=messages,
-        temperature=0.2,
-        max_tokens=64,
-        n=1,
-        stop=None
+        model="gpt-4", messages=messages, temperature=0.2, max_tokens=64, n=1, stop=None
     )
 
     # In the 1.x client, the response uses .choices[0].message.content

@@ -92,6 +92,7 @@ def get_cve_metadata(cve_id: str) -> dict:
 # --------------------------------------------------------------------------- #
 from cyberpulse.models import Finding  # noqa: E402  (avoid circular import at top)
 
+
 def enrich_findings(findings: List[Finding]) -> List[Finding]:
     """Populate each Finding with local CVE metadata (summary, date, refs)."""
     for f in findings:
@@ -106,7 +107,9 @@ def enrich_findings(findings: List[Finding]) -> List[Finding]:
 # --------------------------------------------------------------------------- #
 # Public convenience wrapper – called by cli.py
 # --------------------------------------------------------------------------- #
-def enrich(findings: List[Dict[str, Any]], *, use_cloud: bool = False) -> List[Dict[str, Any]]:
+def enrich(
+    findings: List[Dict[str, Any]], *, use_cloud: bool = False
+) -> List[Dict[str, Any]]:
     """
     Normalised entry-point for the CLI.
 

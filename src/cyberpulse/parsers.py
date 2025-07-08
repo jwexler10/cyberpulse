@@ -2,6 +2,7 @@
 
 import os
 
+
 def detect_format(file_path: str) -> str:
     """
     Detects the scanner export format based on file extension.
@@ -26,11 +27,13 @@ def detect_format(file_path: str) -> str:
     else:
         raise ValueError(f"Unsupported file format: {ext}")
 
+
 # src/cyberpulse/parsers.py
 
 import json
 from typing import List
 from cyberpulse.models import Finding
+
 
 def parse_json(file_path: str) -> List[Finding]:
     """
@@ -42,7 +45,7 @@ def parse_json(file_path: str) -> List[Finding]:
     Returns:
         A list of Finding instances.
     """
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     # Handle either dict-with-"findings" or bare list
@@ -73,6 +76,7 @@ import csv
 from typing import List
 from cyberpulse.models import Finding
 
+
 def parse_csv(file_path: str) -> List[Finding]:
     """
     Parses a CSV scanner export into a list of Finding objects.
@@ -84,7 +88,7 @@ def parse_csv(file_path: str) -> List[Finding]:
         A list of Finding instances.
     """
     findings: List[Finding] = []
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             finding = Finding(
@@ -97,9 +101,11 @@ def parse_csv(file_path: str) -> List[Finding]:
             findings.append(finding)
     return findings
 
+
 import xmltodict
 from typing import List
 from cyberpulse.models import Finding
+
 
 def parse_xml(file_path: str) -> List[Finding]:
     """
@@ -111,7 +117,7 @@ def parse_xml(file_path: str) -> List[Finding]:
     Returns:
         A list of Finding instances.
     """
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         doc = xmltodict.parse(f.read())
 
     # Adjust these keys if your XML has a different structure:
@@ -132,8 +138,10 @@ def parse_xml(file_path: str) -> List[Finding]:
 
     return findings
 
+
 from typing import List
 from cyberpulse.models import Finding
+
 
 def parse_file(file_path: str) -> List[Finding]:
     """
@@ -158,12 +166,15 @@ def parse_file(file_path: str) -> List[Finding]:
     else:
         # This should never happen because detect_format already errors
         raise ValueError(f"Unsupported format: {fmt}")
-    
+
     # --------------------------------------------------------------------------- #
+
+
 # Public convenience wrapper
 # --------------------------------------------------------------------------- #
 from pathlib import Path
 from typing import List, Dict, Any
+
 
 def parse(path: Path) -> List[Dict[str, Any]]:
     """
@@ -175,12 +186,10 @@ def parse(path: Path) -> List[Dict[str, Any]]:
     """
     ext = path.suffix.lower()
     if ext in {".json", ".jsn"}:
-        return parse_json(path)          # <- use your real function names
+        return parse_json(path)  # <- use your real function names
     if ext in {".csv"}:
         return parse_csv(path)
     if ext in {".xml"}:
         return parse_xml(path)
 
     raise ValueError(f"Unsupported input format: {ext}")
-
-

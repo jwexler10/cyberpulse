@@ -11,13 +11,14 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     "defaults": {
         "thresholds": {
             "Critical": 9.0,
-            "High":     7.0,
-            "Medium":   4.0,
-            "Low":      0.0,
+            "High": 7.0,
+            "Medium": 4.0,
+            "Low": 0.0,
         },
         "public_hosts": ["public", "internet", "0.0.0.0"],
     },
 }
+
 
 def _get_paths():
     """
@@ -28,6 +29,7 @@ def _get_paths():
     config_dir = home / ".cyberpulse"
     config_path = config_dir / "config.yml"
     return config_dir, config_path
+
 
 def load_config() -> Dict[str, Any]:
     """
@@ -55,6 +57,7 @@ def load_config() -> Dict[str, Any]:
     cfg["defaults"].update(defaults_overrides)
 
     return cfg
+
 
 def save_config(cfg: Dict[str, Any]) -> None:
     """

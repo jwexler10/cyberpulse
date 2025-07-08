@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Optional, List
 
+
 @dataclass
 class Finding:
     id: str

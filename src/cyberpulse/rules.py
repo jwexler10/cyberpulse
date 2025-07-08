@@ -8,18 +8,18 @@ from cyberpulse.models import Finding
 # Priority levels
 # --------------------------------------------------------------------------- #
 PRIORITY_CRITICAL = "Critical"
-PRIORITY_HIGH     = "High"
-PRIORITY_MEDIUM   = "Medium"
-PRIORITY_LOW      = "Low"
+PRIORITY_HIGH = "High"
+PRIORITY_MEDIUM = "Medium"
+PRIORITY_LOW = "Low"
 
 # --------------------------------------------------------------------------- #
 # Default thresholds & public-host patterns
 # --------------------------------------------------------------------------- #
 DEFAULT_THRESHOLDS: Dict[str, float] = {
     PRIORITY_CRITICAL: 9.0,
-    PRIORITY_HIGH:     7.0,
-    PRIORITY_MEDIUM:   4.0,
-    PRIORITY_LOW:      0.0,
+    PRIORITY_HIGH: 7.0,
+    PRIORITY_MEDIUM: 4.0,
+    PRIORITY_LOW: 0.0,
 }
 
 DEFAULT_PUBLIC_HOSTS: List[str] = [
@@ -38,6 +38,7 @@ KNOWN_EXPLOITED_PATH = os.path.join(
     "known_exploited.txt",
 )
 
+
 def load_known_exploited() -> set[str]:
     """Load the known-exploited CVE IDs into a set."""
     try:
@@ -46,7 +47,9 @@ def load_known_exploited() -> set[str]:
     except FileNotFoundError:
         return set()
 
+
 KNOWN_EXPLOITED = load_known_exploited()
+
 
 # --------------------------------------------------------------------------- #
 # Core prioritisation logic
@@ -97,6 +100,7 @@ def prioritize(
                 f.priority = PRIORITY_CRITICAL
 
     return findings
+
 
 # --------------------------------------------------------------------------- #
 # Public convenience wrapper (used by cli.py)

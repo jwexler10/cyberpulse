@@ -6,12 +6,12 @@ from cyberpulse.models import Finding
 
 # Default model path; override with LLAMA_MODEL_PATH env var if desired
 MODEL_PATH = os.getenv(
-    "LLAMA_MODEL_PATH",
-    os.path.join(os.getcwd(), "models", "llama-2-7b.gguf")
+    "LLAMA_MODEL_PATH", os.path.join(os.getcwd(), "models", "llama-2-7b.gguf")
 )
 
 # Lazy initialization of the model
 _llama = None
+
 
 def _get_llama():
     global _llama
@@ -24,6 +24,7 @@ def _get_llama():
                 "Please ensure the model file exists and is a valid GGUF model."
             )
     return _llama
+
 
 def summarize_remediation(finding: Finding) -> str:
     """
@@ -41,12 +42,7 @@ def summarize_remediation(finding: Finding) -> str:
         )
 
         # Generate a single completion
-        response = llama(
-            prompt=prompt,
-            max_tokens=64,
-            temperature=0.2,
-            stop=["\n"]
-        )
+        response = llama(prompt=prompt, max_tokens=64, temperature=0.2, stop=["\n"])
         return response["choices"][0]["text"].strip()
 
     except RuntimeError:
