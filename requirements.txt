@@ -1,0 +1,10 @@
+click==8.2.1
+PyYAML==6.0.2
+xmltodict==0.14.2
+SQLAlchemy==2.0.41
+requests==2.32.4
+python-dateutil==2.9.0
+llama-cpp-python==0.3.12
+openai==1.93.0
+slack_sdk==3.35.0
+
