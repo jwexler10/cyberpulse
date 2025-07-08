@@ -75,3 +75,4 @@ cyberpulse/
 
 [MIT](LICENSE)
 
+# CI smoke test
